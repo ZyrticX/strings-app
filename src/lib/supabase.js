@@ -10,7 +10,9 @@ console.log('- import.meta.env.PROD:', import.meta.env.PROD);
 console.log('- window.location.hostname:', window.location.hostname);
 console.log('- isProduction:', isProduction);
 console.log('- VITE_SUPABASE_URL:', import.meta.env.VITE_SUPABASE_URL);
+console.log('- VITE_SUPABASE_ANON_KEY:', import.meta.env.VITE_SUPABASE_ANON_KEY ? 'SET' : 'MISSING');
 console.log('- VITE_PRODUCTION_DOMAIN:', import.meta.env.VITE_PRODUCTION_DOMAIN);
+console.log('- All environment variables:', Object.keys(import.meta.env).filter(key => key.startsWith('VITE_')));
 
 if (isProduction) {
   console.log('🌍 Running in production mode');

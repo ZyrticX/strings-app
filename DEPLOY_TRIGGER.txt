@@ -2,8 +2,8 @@ VERCEL DEPLOYMENT TRIGGER
 =========================
 
 This file forces Vercel to redeploy with latest changes.
-Version: 1.9
-Timestamp: 2025-01-19 19:10
+Version: 2.0
+Timestamp: 2025-01-19 19:15
 
 All fixes included:
 - React Error #300 fixes
@@ -18,5 +18,7 @@ All fixes included:
 - CREATED: Vercel environment variables setup guide
 - ADDED: Google OAuth debug info
 - CREATED: Google OAuth production fix guide
+- CHANGED: App name from "Base44 App" to "Strings App Events"
+- ENHANCED: Environment debug with more details
 
-CRITICAL: Google OAuth redirects to localhost - need to update Google Cloud Console!
+URGENT: Environment variables not set in Vercel (406 errors)!

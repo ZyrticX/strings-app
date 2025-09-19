@@ -1,6 +1,6 @@
 {
-  "name": "Strings App",
-  "short_name": "Strings",
+  "name": "Strings App Events",
+  "short_name": "Strings Events",
   "description": "Event photo management application",
   "start_url": "/",
   "display": "standalone",
