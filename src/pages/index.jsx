@@ -81,10 +81,32 @@ function PagesContent() {
     const getPageName = React.useCallback((pathname) => {
         try {
             const path = pathname.replace(/^\//, '').split('/')[0] || 'MyEvents';
-            const pageName = path.charAt(0).toUpperCase() + path.slice(1);
+            
+            // Handle specific page mappings to match exact component names
+            const pageMap = {
+                'myevents': 'MyEvents',
+                'createevent': 'CreateEvent',
+                'editevent': 'EditEvent',
+                'paymentpage': 'PaymentPage',
+                'adminnotifications': 'AdminNotifications',
+                'admindashboard': 'AdminDashboard',
+                'usernotifications': 'UserNotifications',
+                'guestaccess': 'GuestAccess',
+                'guestalbum': 'GuestAlbum',
+                'createeventpage': 'CreateEventPage',
+                'paymentsuccess': 'PaymentSuccess',
+                'paymenterror': 'PaymentError',
+                'slideshowpage': 'SlideshowPage',
+                'home': 'Home'
+            };
+            
+            const lowerPath = path.toLowerCase();
+            const pageName = pageMap[lowerPath] || path.charAt(0).toUpperCase() + path.slice(1);
+            
             console.log('🔍 Page Detection Debug:');
             console.log('- pathname:', pathname);
             console.log('- path after cleanup:', path);
+            console.log('- lowerPath:', lowerPath);
             console.log('- final pageName:', pageName);
             return pageName;
         } catch (error) {
