@@ -2,8 +2,8 @@ VERCEL DEPLOYMENT TRIGGER
 =========================
 
 This file forces Vercel to redeploy with latest changes.
-Version: 1.7
-Timestamp: 2025-01-19 18:50
+Version: 1.8
+Timestamp: 2025-01-19 19:00
 
 All fixes included:
 - React Error #300 fixes
@@ -14,5 +14,7 @@ All fixes included:
 - FIXED: Vercel.json redirect pattern
 - FIXED: Google Auth redirect to correct domain
 - FIXED: React hooks order - "more hooks than previous render"
+- ADDED: Environment debug info for Vercel troubleshooting
+- CREATED: Vercel environment variables setup guide
 
-CRITICAL: Fixed React hooks ordering issue that caused crashes!
+URGENT: Need to configure Vercel environment variables!

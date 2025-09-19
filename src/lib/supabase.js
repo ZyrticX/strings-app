@@ -5,6 +5,13 @@ const isProduction = import.meta.env.PROD || window.location.hostname.includes('
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || 'http://127.0.0.1:54321'
 const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS1kZW1vIiwicm9sZSI6ImFub24iLCJleHAiOjE5ODM4MTI5OTZ9.CRXP1A7WOeoJeXxjNni43kdQwgnWNReilDMAs_-e3Dc'
 
+console.log('🔧 Environment Debug Info:');
+console.log('- import.meta.env.PROD:', import.meta.env.PROD);
+console.log('- window.location.hostname:', window.location.hostname);
+console.log('- isProduction:', isProduction);
+console.log('- VITE_SUPABASE_URL:', import.meta.env.VITE_SUPABASE_URL);
+console.log('- VITE_PRODUCTION_DOMAIN:', import.meta.env.VITE_PRODUCTION_DOMAIN);
+
 if (isProduction) {
   console.log('🌍 Running in production mode');
   console.log('📍 Supabase URL:', supabaseUrl);
