@@ -86,10 +86,10 @@ export const db = {
       const currentPath = window.location.pathname + window.location.search;
       localStorage.setItem('redirectAfterLogin', currentPath);
       
-      // Use production domain if in production, otherwise current origin
-      const redirectOrigin = isProduction && import.meta.env.VITE_PRODUCTION_DOMAIN 
-        ? import.meta.env.VITE_PRODUCTION_DOMAIN 
-        : window.location.origin;
+      // Always use current origin for redirect - this fixes the localhost issue
+      const redirectOrigin = window.location.origin;
+      
+      console.log('🔐 Google login redirect will go to:', redirectOrigin);
       
       const { data, error } = await supabase.auth.signInWithOAuth({
         provider: 'google',

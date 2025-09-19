@@ -2,8 +2,8 @@ VERCEL DEPLOYMENT TRIGGER
 =========================
 
 This file forces Vercel to redeploy with latest changes.
-Version: 1.5
-Timestamp: 2025-01-19 18:40
+Version: 1.6
+Timestamp: 2025-01-19 18:45
 
 All fixes included:
 - React Error #300 fixes
@@ -12,5 +12,6 @@ All fixes included:
 - Manifest.json
 - Non-minified build for debugging
 - FIXED: Vercel.json redirect pattern
+- FIXED: Google Auth redirect to correct domain
 
-URGENT: Fixed redirect error in vercel.json!
+CRITICAL: Fixed Google login redirect from localhost to production domain!
