@@ -188,7 +188,7 @@ export default function Layout({ children, currentPageName }) {
 
   // Define public pages that do not require any layout or user checks.
   // This is the "Guest List" for our "Bouncer".
-  const publicPages = ['Home', 'SlideshowPage', 'GuestAccess', 'GuestAlbum', 'PaymentSuccess', 'PaymentError'];
+  const publicPages = ['SlideshowPage', 'GuestAccess', 'GuestAlbum', 'PaymentSuccess', 'PaymentError'];
   const isPublicPage = publicPages.includes(currentPageName);
 
   // Fetch unread notifications count for admin users
@@ -368,7 +368,7 @@ export default function Layout({ children, currentPageName }) {
 
   // Determine which navigation items to show based on user role
   const currentNavItems = user && user.role === 'admin' ? navItemsAdmin : navItemsUser;
-  const isAdminAreaPage = ['MyEvents', 'CreateEvent', 'EditEvent', 'PaymentPage', 'AdminNotifications', 'AdminDashboard'].includes(currentPageName);
+  const isAdminAreaPage = ['Home', 'MyEvents', 'CreateEvent', 'EditEvent', 'PaymentPage', 'AdminNotifications', 'AdminDashboard', 'UserNotifications'].includes(currentPageName);
 
   // Always include Toaster and PWA prompt regardless of page type
   const mainContent = (

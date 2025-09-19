@@ -2,8 +2,8 @@ VERCEL DEPLOYMENT TRIGGER
 =========================
 
 This file forces Vercel to redeploy with latest changes.
-Version: 2.0
-Timestamp: 2025-01-19 19:15
+Version: 2.1
+Timestamp: 2025-01-19 19:25
 
 All fixes included:
 - React Error #300 fixes
@@ -20,5 +20,8 @@ All fixes included:
 - CREATED: Google OAuth production fix guide
 - CHANGED: App name from "Base44 App" to "Strings App Events"
 - ENHANCED: Environment debug with more details
+- FIXED: Home page now shows dashboard instead of redirecting to MyEvents
+- FIXED: Home page now displays navigation menu
+- ADDED: Beautiful home dashboard with quick action cards
 
-URGENT: Environment variables not set in Vercel (406 errors)!
+SUCCESS: Home page with navigation and dashboard!
