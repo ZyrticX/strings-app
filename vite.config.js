@@ -23,5 +23,18 @@ export default defineConfig({
       },
     },
   },
+  build: {
+    chunkSizeWarningLimit: 1000,
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          vendor: ['react', 'react-dom'],
+          ui: ['@radix-ui/react-dialog', '@radix-ui/react-select', '@radix-ui/react-tabs'],
+          supabase: ['@supabase/supabase-js'],
+          utils: ['date-fns', 'lucide-react']
+        }
+      }
+    }
+  },
   envPrefix: 'VITE_'
 }) 
