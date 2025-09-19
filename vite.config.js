@@ -25,6 +25,7 @@ export default defineConfig({
   },
   build: {
     chunkSizeWarningLimit: 1000,
+    minify: false, // Disable minification for debugging
     rollupOptions: {
       output: {
         manualChunks: {

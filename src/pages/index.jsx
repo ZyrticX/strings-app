@@ -75,54 +75,61 @@ function _getCurrentPage(url) {
 // Create a wrapper component that uses useLocation inside the Router context
 function PagesContent() {
     const location = useLocation();
-    const currentPage = _getCurrentPage(location.pathname);
+    
+    // Simplified page detection
+    const getPageName = (pathname) => {
+        const path = pathname.replace(/^\//, '').split('/')[0] || 'MyEvents';
+        return path.charAt(0).toUpperCase() + path.slice(1);
+    };
+    
+    const currentPage = getPageName(location.pathname);
     
     return (
         <Layout currentPageName={currentPage}>
             <Routes>            
-                
-                    <Route path="/" element={<MyEvents />} />
-                
-                
+                <Route path="/" element={<Home />} />
                 <Route path="/MyEvents" element={<MyEvents />} />
-                
                 <Route path="/CreateEvent" element={<CreateEvent />} />
-                
                 <Route path="/EditEvent" element={<EditEvent />} />
-                
                 <Route path="/GuestAccess" element={<GuestAccess />} />
-                
                 <Route path="/guest/:eventId" element={<GuestAccess />} />
-                
                 <Route path="/GuestAlbum" element={<GuestAlbum />} />
-                
                 <Route path="/CreateEventPage" element={<CreateEventPage />} />
-                
                 <Route path="/PaymentPage" element={<PaymentPage />} />
-                
                 <Route path="/AdminNotifications" element={<AdminNotifications />} />
-                
                 <Route path="/UserNotifications" element={<UserNotifications />} />
-                
                 <Route path="/AdminDashboard" element={<AdminDashboard />} />
-                
                 <Route path="/PaymentSuccess" element={<PaymentSuccess />} />
-                
                 <Route path="/PaymentError" element={<PaymentError />} />
-                
                 <Route path="/SlideshowPage" element={<SlideshowPage />} />
-                
                 <Route path="/Home" element={<Home />} />
-                
             </Routes>
         </Layout>
     );
 }
 
 export default function Pages() {
-    return (
-        <Router>
-            <PagesContent />
-        </Router>
-    );
+    try {
+        return (
+            <Router>
+                <PagesContent />
+            </Router>
+        );
+    } catch (error) {
+        console.error('Error in Pages component:', error);
+        return (
+            <div className="min-h-screen flex items-center justify-center">
+                <div className="text-center p-6">
+                    <h1 className="text-2xl font-bold text-red-600 mb-4">שגיאה בטעינת האפליקציה</h1>
+                    <p className="text-gray-600 mb-4">אירעה שגיאה בניתוב. אנא רענן את הדף.</p>
+                    <button 
+                        onClick={() => window.location.reload()} 
+                        className="bg-blue-500 text-white px-4 py-2 rounded"
+                    >
+                        רענן דף
+                    </button>
+                </div>
+            </div>
+        );
+    }
 }
