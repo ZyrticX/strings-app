@@ -38,8 +38,25 @@
   ],
   "redirects": [
     {
-      "source": "https://strings-app.com/:path*",
-      "destination": "https://www.strings-app.com/:path*",
+      "source": "/",
+      "has": [
+        {
+          "type": "host",
+          "value": "strings-app.com"
+        }
+      ],
+      "destination": "https://www.strings-app.com",
+      "permanent": true
+    },
+    {
+      "source": "/(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "strings-app.com"
+        }
+      ],
+      "destination": "https://www.strings-app.com/$1",
       "permanent": true
     }
   ]
