@@ -7,8 +7,8 @@ import { initToastSystem } from '@/utils/toast'
 // Initialize toast system early
 initToastSystem();
 
-// Force Vercel rebuild - version 1.1
-console.log('🚀 Strings App v1.1 - Force rebuild');
+// Force Vercel rebuild - version 1.2
+console.log('🚀 Strings App v1.2 - MANUAL REDEPLOY TRIGGER');
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
