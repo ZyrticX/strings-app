@@ -2,8 +2,8 @@ VERCEL DEPLOYMENT TRIGGER
 =========================
 
 This file forces Vercel to redeploy with latest changes.
-Version: 2.4
-Timestamp: 2025-01-19 19:40
+Version: 2.5
+Timestamp: 2025-01-19 19:45
 
 All fixes included:
 - React Error #300 fixes
@@ -26,5 +26,7 @@ All fixes included:
 - FIXED: Navigation menu now appears on ALL main pages (MyEvents, CreateEvent, EditEvent, etc.)
 - ADDED: Navigation debug logs to troubleshoot menu visibility
 - CRITICAL FIX: Case sensitivity issue in page name detection (Myevents vs MyEvents)
+- FIXED: Home page (/home) is now public page without navigation menu
+- CHANGED: Logged-in users redirect from Home to MyEvents
 
-CRITICAL: Fixed case sensitivity bug that prevented navigation menu!
+SUCCESS: Home page without menu, navigation works on all other pages!

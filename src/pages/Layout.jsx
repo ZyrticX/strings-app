@@ -188,7 +188,7 @@ export default function Layout({ children, currentPageName }) {
 
   // Define public pages that do not require any layout or user checks.
   // This is the "Guest List" for our "Bouncer".
-  const publicPages = ['SlideshowPage', 'GuestAccess', 'GuestAlbum', 'PaymentSuccess', 'PaymentError'];
+  const publicPages = ['Home', 'SlideshowPage', 'GuestAccess', 'GuestAlbum', 'PaymentSuccess', 'PaymentError'];
   const isPublicPage = publicPages.includes(currentPageName);
 
   // Fetch unread notifications count for admin users
@@ -372,7 +372,7 @@ export default function Layout({ children, currentPageName }) {
   // All pages that should show the admin/user layout with sidebar navigation
   // Basically all protected pages except special ones like CreateEventPage
   const pagesWithNavigation = [
-    'Home', 'MyEvents', 'CreateEvent', 'EditEvent', 'PaymentPage', 
+    'MyEvents', 'CreateEvent', 'EditEvent', 'PaymentPage', 
     'AdminNotifications', 'AdminDashboard', 'UserNotifications'
   ];
   const shouldShowNavigation = pagesWithNavigation.includes(currentPageName);

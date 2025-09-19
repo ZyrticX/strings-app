@@ -97,7 +97,8 @@ function PagesContent() {
                 'paymentsuccess': 'PaymentSuccess',
                 'paymenterror': 'PaymentError',
                 'slideshowpage': 'SlideshowPage',
-                'home': 'Home'
+                'home': 'Home',
+                'dashboard': 'Dashboard'
             };
             
             const lowerPath = path.toLowerCase();
@@ -138,6 +139,7 @@ function PagesContent() {
                 <Route path="/PaymentError" element={<PaymentError />} />
                 <Route path="/SlideshowPage" element={<SlideshowPage />} />
                 <Route path="/Home" element={<Home />} />
+                <Route path="/Dashboard" element={<MyEvents />} />
             </Routes>
         </Layout>
     );
