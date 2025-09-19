@@ -1,12 +1,19 @@
 import { createClient } from '@supabase/supabase-js'
 
 // Supabase configuration
+const isProduction = import.meta.env.PROD || window.location.hostname.includes('strings-app.com')
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || 'http://127.0.0.1:54321'
 const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS1kZW1vIiwicm9sZSI6ImFub24iLCJleHAiOjE5ODM4MTI5OTZ9.CRXP1A7WOeoJeXxjNni43kdQwgnWNReilDMAs_-e3Dc'
 
-console.log('🏠 Running locally with Supabase configuration:');
-console.log('📍 Supabase URL:', supabaseUrl);
-console.log('🔑 Using local development keys');
+if (isProduction) {
+  console.log('🌍 Running in production mode');
+  console.log('📍 Supabase URL:', supabaseUrl);
+  console.log('🔑 Using production keys');
+} else {
+  console.log('🏠 Running locally with Supabase configuration:');
+  console.log('📍 Supabase URL:', supabaseUrl);
+  console.log('🔑 Using local development keys');
+}
 
 export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
   auth: {
@@ -79,10 +86,15 @@ export const db = {
       const currentPath = window.location.pathname + window.location.search;
       localStorage.setItem('redirectAfterLogin', currentPath);
       
+      // Use production domain if in production, otherwise current origin
+      const redirectOrigin = isProduction && import.meta.env.VITE_PRODUCTION_DOMAIN 
+        ? import.meta.env.VITE_PRODUCTION_DOMAIN 
+        : window.location.origin;
+      
       const { data, error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
         options: {
-          redirectTo: `${window.location.origin}/`
+          redirectTo: `${redirectOrigin}/`
         }
       })
       if (error) throw error
