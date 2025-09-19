@@ -1,0 +1,16 @@
+{
+  "name": "Strings App",
+  "short_name": "Strings",
+  "description": "Event photo management application",
+  "start_url": "/",
+  "display": "standalone",
+  "theme_color": "#5C1A1B",
+  "background_color": "#F8F4E6",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "64x64 32x32 24x24 16x16",
+      "type": "image/x-icon"
+    }
+  ]
+}
