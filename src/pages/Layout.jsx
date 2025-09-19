@@ -368,7 +368,14 @@ export default function Layout({ children, currentPageName }) {
 
   // Determine which navigation items to show based on user role
   const currentNavItems = user && user.role === 'admin' ? navItemsAdmin : navItemsUser;
-  const isAdminAreaPage = ['Home', 'MyEvents', 'CreateEvent', 'EditEvent', 'PaymentPage', 'AdminNotifications', 'AdminDashboard', 'UserNotifications'].includes(currentPageName);
+  
+  // All pages that should show the admin/user layout with sidebar navigation
+  // Basically all protected pages except special ones like CreateEventPage
+  const pagesWithNavigation = [
+    'Home', 'MyEvents', 'CreateEvent', 'EditEvent', 'PaymentPage', 
+    'AdminNotifications', 'AdminDashboard', 'UserNotifications'
+  ];
+  const shouldShowNavigation = pagesWithNavigation.includes(currentPageName);
 
   // Always include Toaster and PWA prompt regardless of page type
   const mainContent = (
@@ -380,7 +387,8 @@ export default function Layout({ children, currentPageName }) {
     </>
   );
 
-  if (!isAdminAreaPage) {
+  // Pages without navigation (like CreateEventPage, PaymentSuccess, etc.)
+  if (!shouldShowNavigation) {
     return (
       <div className="min-h-screen flex flex-col transition-colors duration-300 bg-gradient-to-br from-[#FEFBF3] to-[#F8F4E6]">
         <main className="flex-grow">
