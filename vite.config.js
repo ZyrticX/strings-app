@@ -25,7 +25,8 @@ export default defineConfig({
   },
   build: {
     chunkSizeWarningLimit: 1000,
-    minify: false, // Disable minification for debugging
+    minify: false,
+    sourcemap: true,
     rollupOptions: {
       output: {
         manualChunks: {
@@ -36,6 +37,9 @@ export default defineConfig({
         }
       }
     }
+  },
+  define: {
+    'process.env.NODE_ENV': '"development"'
   },
   envPrefix: 'VITE_'
 }) 

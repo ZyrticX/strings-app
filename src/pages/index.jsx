@@ -1,3 +1,4 @@
+import React from 'react';
 import Layout from "./Layout.jsx";
 
 import MyEvents from "./MyEvents";
@@ -76,13 +77,20 @@ function _getCurrentPage(url) {
 function PagesContent() {
     const location = useLocation();
     
-    // Simplified page detection
-    const getPageName = (pathname) => {
-        const path = pathname.replace(/^\//, '').split('/')[0] || 'MyEvents';
-        return path.charAt(0).toUpperCase() + path.slice(1);
-    };
+    // Simplified and safer page detection
+    const getPageName = React.useCallback((pathname) => {
+        try {
+            const path = pathname.replace(/^\//, '').split('/')[0] || 'MyEvents';
+            return path.charAt(0).toUpperCase() + path.slice(1);
+        } catch (error) {
+            console.error('Error in getPageName:', error);
+            return 'Home';
+        }
+    }, []);
     
-    const currentPage = getPageName(location.pathname);
+    const currentPage = React.useMemo(() => {
+        return getPageName(location.pathname);
+    }, [location.pathname, getPageName]);
     
     return (
         <Layout currentPageName={currentPage}>
