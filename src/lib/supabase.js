@@ -96,7 +96,11 @@ export const db = {
       // Always use current origin for redirect - this fixes the localhost issue
       const redirectOrigin = window.location.origin;
       
-      console.log('🔐 Google login redirect will go to:', redirectOrigin);
+      console.log('🔐 Google OAuth Debug Info:');
+      console.log('- Current origin:', redirectOrigin);
+      console.log('- Current path:', currentPath);
+      console.log('- Production domain env var:', import.meta.env.VITE_PRODUCTION_DOMAIN);
+      console.log('- Redirect will go to:', `${redirectOrigin}/`);
       
       const { data, error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
@@ -104,7 +108,11 @@ export const db = {
           redirectTo: `${redirectOrigin}/`
         }
       })
-      if (error) throw error
+      if (error) {
+        console.error('🚨 Google OAuth Error:', error);
+        throw error;
+      }
+      console.log('✅ Google OAuth initiated successfully:', data);
       return data
     },
     
