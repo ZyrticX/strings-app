@@ -189,17 +189,7 @@ export default function Layout({ children, currentPageName }) {
   // Define public pages that do not require any layout or user checks.
   // This is the "Guest List" for our "Bouncer".
   const publicPages = ['Home', 'SlideshowPage', 'GuestAccess', 'GuestAlbum', 'PaymentSuccess', 'PaymentError'];
-  if (publicPages.includes(currentPageName)) {
-    // If the page is public, render it directly without any user checks here.
-    return (
-        <>
-            <GlobalStyles /> 
-            <Toaster richColors position="top-center" expand={true} closeButton />
-            {currentPageName !== 'SlideshowPage' && <PWAInstallPrompt />}
-            {children}
-        </>
-    );
-  }
+  const isPublicPage = publicPages.includes(currentPageName);
 
   // Fetch unread notifications count for admin users
   const fetchUnreadNotificationsCount = async () => {
@@ -211,9 +201,9 @@ export default function Layout({ children, currentPageName }) {
     }
   };
 
-  // This useEffect will run for ALL PROTECTED PAGES.
+  // This useEffect will run for ALL PAGES (but only do protected logic for non-public pages)
   useEffect(() => {
-    // Force light mode
+    // Force light mode for all pages
     if (typeof window !== 'undefined') {
       document.documentElement.classList.remove('dark');
       localStorage.removeItem('darkMode');
@@ -228,25 +218,28 @@ export default function Layout({ children, currentPageName }) {
 
     let notificationInterval;
 
-    const checkUserOnProtectedRoute = async () => {
-      try {
-        const currentUser = await User.me();
-        setUser(currentUser);
-        
-        // If user is admin, fetch unread notifications count
-        if (currentUser && currentUser.role === 'admin') {
-          await fetchUnreadNotificationsCount();
+    // Only run user check for protected pages
+    if (!isPublicPage) {
+      const checkUserOnProtectedRoute = async () => {
+        try {
+          const currentUser = await User.me();
+          setUser(currentUser);
           
-          // Set up interval to refresh notifications count every 30 seconds
-          notificationInterval = setInterval(fetchUnreadNotificationsCount, 30000);
+          // If user is admin, fetch unread notifications count
+          if (currentUser && currentUser.role === 'admin') {
+            await fetchUnreadNotificationsCount();
+            
+            // Set up interval to refresh notifications count every 30 seconds
+            notificationInterval = setInterval(fetchUnreadNotificationsCount, 30000);
+          }
+        } catch (error) {
+          // If the check fails on a protected page, redirect to the Home page.
+          navigate(createPageUrl('Home'));
         }
-      } catch (error) {
-        // If the check fails on a protected page, redirect to the Home page.
-        navigate(createPageUrl('Home'));
-      }
-    };
-    
-    checkUserOnProtectedRoute();
+      };
+      
+      checkUserOnProtectedRoute();
+    }
 
     return () => {
       if(document.head.contains(manifestLink)) document.head.removeChild(manifestLink);
@@ -254,7 +247,7 @@ export default function Layout({ children, currentPageName }) {
         clearInterval(notificationInterval);
       }
     };
-  }, [currentPageName, navigate]);
+  }, [currentPageName, navigate, isPublicPage]);
 
   const handleLogout = async () => {
     try {
@@ -350,6 +343,18 @@ export default function Layout({ children, currentPageName }) {
       </div>
     </nav>
   );
+
+  // Early return for public pages - AFTER all hooks are declared
+  if (isPublicPage) {
+    return (
+        <>
+            <GlobalStyles /> 
+            <Toaster richColors position="top-center" expand={true} closeButton />
+            {currentPageName !== 'SlideshowPage' && <PWAInstallPrompt />}
+            {children}
+        </>
+    );
+  }
 
   // If we are here, it's a protected page and the user check is in progress.
   if (!user) {
