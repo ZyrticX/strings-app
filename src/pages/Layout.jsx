@@ -376,6 +376,14 @@ export default function Layout({ children, currentPageName }) {
     'AdminNotifications', 'AdminDashboard', 'UserNotifications'
   ];
   const shouldShowNavigation = pagesWithNavigation.includes(currentPageName);
+  
+  // DEBUG: Log navigation logic
+  console.log('🧭 Navigation Debug:');
+  console.log('- currentPageName:', currentPageName);
+  console.log('- pagesWithNavigation:', pagesWithNavigation);
+  console.log('- shouldShowNavigation:', shouldShowNavigation);
+  console.log('- isPublicPage:', isPublicPage);
+  console.log('- user:', user ? 'exists' : 'null');
 
   // Always include Toaster and PWA prompt regardless of page type
   const mainContent = (

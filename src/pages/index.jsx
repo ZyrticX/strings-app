@@ -81,7 +81,12 @@ function PagesContent() {
     const getPageName = React.useCallback((pathname) => {
         try {
             const path = pathname.replace(/^\//, '').split('/')[0] || 'MyEvents';
-            return path.charAt(0).toUpperCase() + path.slice(1);
+            const pageName = path.charAt(0).toUpperCase() + path.slice(1);
+            console.log('🔍 Page Detection Debug:');
+            console.log('- pathname:', pathname);
+            console.log('- path after cleanup:', path);
+            console.log('- final pageName:', pageName);
+            return pageName;
         } catch (error) {
             console.error('Error in getPageName:', error);
             return 'Home';
