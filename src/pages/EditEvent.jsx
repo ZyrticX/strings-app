@@ -1217,13 +1217,13 @@ setIsEditable(false);
             )}
 
             <Tabs defaultValue="details" className="w-full">
-                <TabsList className="grid w-full grid-cols-2 sm:grid-cols-5 gap-2 bg-gray-100 dark:bg-gray-800 p-2 rounded-xl h-auto">
-                    <TabsTrigger value="details" className="text-base px-3 py-2.5 rounded-lg data-[state=active]:bg-bordeaux data-[state=active]:text-white data-[state=active]:shadow-md dark:data-[state=active]:bg-[#d4a574] dark:data-[state=active]:text-gray-900"><Settings className="w-4 h-4 ml-2" />פרטי אירוע</TabsTrigger>
-                    <TabsTrigger value="media" className="text-base px-3 py-2.5 rounded-lg data-[state=active]:bg-bordeaux data-[state=active]:text-white data-[state=active]:shadow-md dark:data-[state=active]:bg-[#d4a574] dark:data-[state=active]:text-gray-900"><ImageIcon className="w-4 h-4 ml-2" />ניהול מדיה</TabsTrigger>
-                    <TabsTrigger value="wishes" className="text-base px-3 py-2.5 rounded-lg data-[state=active]:bg-bordeaux data-[state=active]:text-white data-[state=active]:shadow-md dark:data-[state=active]:bg-[#d4a574] dark:data-[state=active]:text-gray-900"><MessageSquare className="w-4 h-4 ml-2" />ניהול ברכות</TabsTrigger>
-                    <TabsTrigger value="backup" className="text-base px-3 py-2.5 rounded-lg data-[state=active]:bg-bordeaux data-[state=active]:text-white data-[state=active]:shadow-md dark:data-[state=active]:bg-[#d4a574] dark:data-[state=active]:text-gray-900"><DownloadIcon className="w-4 h-4 ml-2" />גיבוי מדיה</TabsTrigger>
-                    <TabsTrigger value="sharing" className="text-base px-3 py-2.5 rounded-lg data-[state=active]:bg-bordeaux data-[state=active]:text-white data-[state=active]:shadow-md dark:data-[state=active]:bg-[#d4a574] dark:data-[state=active]:text-gray-900"><Share2 className="w-4 h-4 ml-2" />שיתוף וגישה</TabsTrigger>
-                    <TabsTrigger value="actions" className="text-base px-3 py-2.5 rounded-lg data-[state=active]:bg-bordeaux data-[state=active]:text-white data-[state=active]:shadow-md dark:data-[state=active]:bg-[#d4a574] dark:data-[state=active]:text-gray-900"><Send className="w-4 h-4 ml-2" />פעולות נוספות</TabsTrigger>
+                <TabsList className="grid w-full grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-1 sm:gap-2 bg-gray-100 dark:bg-gray-800 p-2 rounded-xl h-auto overflow-x-auto">
+                    <TabsTrigger value="details" className="text-sm sm:text-base px-2 sm:px-3 py-2 sm:py-2.5 rounded-lg data-[state=active]:bg-bordeaux data-[state=active]:text-white data-[state=active]:shadow-md dark:data-[state=active]:bg-[#d4a574] dark:data-[state=active]:text-gray-900 flex-shrink-0"><Settings className="w-4 h-4 ml-1 sm:ml-2" /><span className="hidden sm:inline">פרטי אירוע</span><span className="sm:hidden">פרטים</span></TabsTrigger>
+                    <TabsTrigger value="media" className="text-sm sm:text-base px-2 sm:px-3 py-2 sm:py-2.5 rounded-lg data-[state=active]:bg-bordeaux data-[state=active]:text-white data-[state=active]:shadow-md dark:data-[state=active]:bg-[#d4a574] dark:data-[state=active]:text-gray-900 flex-shrink-0"><ImageIcon className="w-4 h-4 ml-1 sm:ml-2" /><span className="hidden sm:inline">ניהול מדיה</span><span className="sm:hidden">מדיה</span></TabsTrigger>
+                    <TabsTrigger value="wishes" className="text-sm sm:text-base px-2 sm:px-3 py-2 sm:py-2.5 rounded-lg data-[state=active]:bg-bordeaux data-[state=active]:text-white data-[state=active]:shadow-md dark:data-[state=active]:bg-[#d4a574] dark:data-[state=active]:text-gray-900 flex-shrink-0"><MessageSquare className="w-4 h-4 ml-1 sm:ml-2" /><span className="hidden sm:inline">ניהול ברכות</span><span className="sm:hidden">ברכות</span></TabsTrigger>
+                    <TabsTrigger value="backup" className="text-sm sm:text-base px-2 sm:px-3 py-2 sm:py-2.5 rounded-lg data-[state=active]:bg-bordeaux data-[state=active]:text-white data-[state=active]:shadow-md dark:data-[state=active]:bg-[#d4a574] dark:data-[state=active]:text-gray-900 flex-shrink-0"><DownloadIcon className="w-4 h-4 ml-1 sm:ml-2" /><span className="hidden sm:inline">גיבוי מדיה</span><span className="sm:hidden">גיבוי</span></TabsTrigger>
+                    <TabsTrigger value="sharing" className="text-sm sm:text-base px-2 sm:px-3 py-2 sm:py-2.5 rounded-lg data-[state=active]:bg-bordeaux data-[state=active]:text-white data-[state=active]:shadow-md dark:data-[state=active]:bg-[#d4a574] dark:data-[state=active]:text-gray-900 flex-shrink-0"><Share2 className="w-4 h-4 ml-1 sm:ml-2" /><span className="hidden lg:inline">שיתוף וגישה</span><span className="lg:hidden">שיתוף</span></TabsTrigger>
+                    <TabsTrigger value="actions" className="text-sm sm:text-base px-2 sm:px-3 py-2 sm:py-2.5 rounded-lg data-[state=active]:bg-bordeaux data-[state=active]:text-white data-[state=active]:shadow-md dark:data-[state=active]:bg-[#d4a574] dark:data-[state=active]:text-gray-900 flex-shrink-0"><Send className="w-4 h-4 ml-1 sm:ml-2" /><span className="hidden lg:inline">פעולות נוספות</span><span className="lg:hidden">פעולות</span></TabsTrigger>
                 </TabsList>
 
                 <TabsContent value="details" className="mt-6">
@@ -1891,13 +1891,13 @@ setIsEditable(false);
                                             </p>
                                         </div>
                                     </CardContent>
-                                    <CardFooter className="py-3 px-4 gap-3">
+                                    <CardFooter className="py-3 px-4 gap-3 flex-col sm:flex-row">
                                         <AlertDialog>
                                             <AlertDialogTrigger asChild>
                                                 <Button 
                                                     variant="destructive" 
                                                     disabled={isSubmitting || !mediaItems?.length}
-                                                    className="rounded-md"
+                                                    className="rounded-md w-full sm:w-auto"
                                                 >
                                                     {isSubmitting ? (
                                                         <Loader2 className="w-4 h-4 ml-2 animate-spin"/>
@@ -1907,19 +1907,19 @@ setIsEditable(false);
                                                     מחק את כל המדיה ({mediaItems?.length || 0})
                                                 </Button>
                                             </AlertDialogTrigger>
-                                            <AlertDialogContent dir="rtl">
+                                            <AlertDialogContent dir="rtl" className="max-w-[90vw] sm:max-w-lg mx-4">
                                                 <AlertDialogHeader>
-                                                    <AlertDialogTitle>האם אתה בטוח שברצונך למחוק את כל המדיה?</AlertDialogTitle>
-                                                    <AlertDialogDescription>
+                                                    <AlertDialogTitle className="text-lg sm:text-xl">האם אתה בטוח שברצונך למחוק את כל המדיה?</AlertDialogTitle>
+                                                    <AlertDialogDescription className="text-sm sm:text-base">
                                                         פעולה זו תמחק לצמיתות את כל {mediaItems?.length || 0} קבצי המדיה מהאירוע.
                                                         לא ניתן לבטל פעולה זו לאחר ביצועה.
                                                     </AlertDialogDescription>
                                                 </AlertDialogHeader>
-                                                <AlertDialogFooter>
-                                                    <AlertDialogCancel>ביטול</AlertDialogCancel>
+                                                <AlertDialogFooter className="flex-col sm:flex-row gap-2">
+                                                    <AlertDialogCancel className="w-full sm:w-auto">ביטול</AlertDialogCancel>
                                                     <AlertDialogAction
                                                         onClick={handleDeleteAllMedia}
-                                                        className="bg-red-600 hover:bg-red-700"
+                                                        className="bg-red-600 hover:bg-red-700 w-full sm:w-auto"
                                                     >
                                                         כן, מחק את כל המדיה
                                                     </AlertDialogAction>
@@ -1932,7 +1932,7 @@ setIsEditable(false);
                                                 <Button 
                                                     variant="destructive" 
                                                     disabled={isSubmitting}
-                                                    className="rounded-md bg-red-700 hover:bg-red-800"
+                                                    className="rounded-md bg-red-700 hover:bg-red-800 w-full sm:w-auto"
                                                 >
                                                     {isSubmitting ? (
                                                         <Loader2 className="w-4 h-4 ml-2 animate-spin"/>
@@ -1942,10 +1942,10 @@ setIsEditable(false);
                                                     מחק אירוע לצמיתות
                                                 </Button>
                                             </AlertDialogTrigger>
-                                            <AlertDialogContent dir="rtl">
+                                            <AlertDialogContent dir="rtl" className="max-w-[90vw] sm:max-w-lg mx-4">
                                                 <AlertDialogHeader>
-                                                    <AlertDialogTitle>האם אתה בטוח שברצונך למחוק את האירוע לצמיתות?</AlertDialogTitle>
-                                                    <AlertDialogDescription>
+                                                    <AlertDialogTitle className="text-lg sm:text-xl">האם אתה בטוח שברצונך למחוק את האירוע לצמיתות?</AlertDialogTitle>
+                                                    <AlertDialogDescription className="text-sm sm:text-base">
                                                         פעולה זו תמחק לצמיתות את האירוע "{eventName}" כולל:
                                                         <br />• כל המדיה ({mediaItems?.length || 0} קבצים)
                                                         <br />• כל הקטגוריות והברכות
@@ -1954,11 +1954,11 @@ setIsEditable(false);
                                                         <strong>לא ניתן לשחזר את הנתונים לאחר המחיקה!</strong>
                                                     </AlertDialogDescription>
                                                 </AlertDialogHeader>
-                                                <AlertDialogFooter>
-                                                    <AlertDialogCancel>ביטול</AlertDialogCancel>
+                                                <AlertDialogFooter className="flex-col sm:flex-row gap-2">
+                                                    <AlertDialogCancel className="w-full sm:w-auto">ביטול</AlertDialogCancel>
                                                     <AlertDialogAction
                                                         onClick={handleDeleteEvent}
-                                                        className="bg-red-700 hover:bg-red-800"
+                                                        className="bg-red-700 hover:bg-red-800 w-full sm:w-auto"
                                                     >
                                                         כן, מחק את האירוע לצמיתות
                                                     </AlertDialogAction>
