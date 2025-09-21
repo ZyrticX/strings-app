@@ -14,6 +14,22 @@ export default function HomePage() {
       try {
         await User.me();
         
+        // Check if there's a pending event access (from Google Auth in GuestAccess)
+        const pendingEventAccess = localStorage.getItem('pendingEventAccess');
+        if (pendingEventAccess) {
+          console.log('🎯 Found pending event access after Google login');
+          const eventInfo = JSON.parse(pendingEventAccess);
+          localStorage.removeItem('pendingEventAccess');
+          
+          // Store Google auth info for the album
+          localStorage.setItem('guestEventId', eventInfo.eventId);
+          localStorage.setItem('guestAuthType', 'google');
+          
+          // Redirect directly to album
+          navigate(createPageUrl('GuestAlbum'));
+          return;
+        }
+        
         // Check if there's a stored redirect path
         const redirectPath = localStorage.getItem('redirectAfterLogin');
         if (redirectPath) {
