@@ -378,7 +378,7 @@ export default function MyEventsPage() {
             title="צור אירוע חדש"
           >
             <PlusCircle className="h-5 w-5 sm:h-6 sm:w-6" />
-            <span className="font-semibold text-sm sm:text-md hidden xs:inline">צור אירוע חדש</span>
+            <span className="font-semibold text-sm sm:text-md">צור אירוע חדש</span>
         </Button>
       </div>
     </div>
