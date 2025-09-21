@@ -690,14 +690,7 @@ setIsEditable(false);
                 safeShowToast("success", "פרטי האירוע עודכנו בהצלחה!", "לא זוהו שינויים מהותיים לשליחה.");
             }
 
-            // Send admin notification about event update
-            try {
-                const changes = changesMadeForInternalEmail.length > 0 ? changesMadeForInternalEmail : ['עדכון כללי'];
-                await notifyEventUpdated(updatedEventData, currentUser, changes);
-                console.log('✅ Admin notification sent for event update:', eventId);
-            } catch (notificationError) {
-                console.warn('⚠️ Failed to send admin notification:', notificationError);
-            }
+            // Admin notification will be sent later if there are structural changes
 
             // Send internal email if changes were made
             if (changesMadeForInternalEmail.length > 0) {

@@ -316,14 +316,7 @@ export default function CreateEventPage() {
       setFinalAccessCode(createdEvent.access_code); // Ensure finalAccessCode is set from the created event
       setCreatedEventDetails(createdEvent);
 
-      // Send notification to admins about new event creation
-      try {
-        await notifyEventCreated(createdEvent, currentUser);
-        console.log('✅ Admin notification sent for new event:', createdEvent.id);
-      } catch (notificationError) {
-        console.warn('⚠️ Failed to send admin notification:', notificationError);
-        // Don't fail the event creation if notification fails
-      }
+      // Admin notification will be sent later with full event details
 
       for (const category of highlightCategories) {
         if (category.id && category.id.toString().startsWith('temp-')) {
