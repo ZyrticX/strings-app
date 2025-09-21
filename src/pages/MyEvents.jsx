@@ -318,8 +318,8 @@ export default function MyEventsPage() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col" dir="rtl">
-      <div className="flex-grow">
+    <div className="min-h-screen flex flex-col max-w-full overflow-x-hidden" dir="rtl">
+      <div className="flex-grow px-2 sm:px-0">
         <div className="flex flex-col sm:flex-row justify-between items-center mb-6 sm:mb-8 gap-4">
           <div>
             <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-bordeaux dark:text-[#d4a574]">האירועים שלי</h1>
@@ -362,7 +362,7 @@ export default function MyEventsPage() {
             </p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 pb-24 sm:pb-20">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 lg:gap-6 pb-24 sm:pb-20 w-full">
             {filteredAndSortedEvents.map(event => <EventCard key={event.id} event={event} onDelete={() => handleDeleteEvent(event.id)} onDebug={() => debugEventDeletion(event.id)} />)}
           </div>
         )}

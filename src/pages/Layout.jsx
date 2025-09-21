@@ -139,6 +139,45 @@ const GlobalStyles = () => (
       display: none !important;
     }
 
+    /* Mobile and iPhone specific fixes */
+    @supports (-webkit-touch-callout: none) {
+      /* iOS Safari specific fixes */
+      body {
+        -webkit-text-size-adjust: 100%;
+        -webkit-tap-highlight-color: transparent;
+      }
+    }
+
+    /* Prevent horizontal scroll on mobile */
+    html, body {
+      overflow-x: hidden;
+      max-width: 100vw;
+    }
+
+    /* Mobile responsive container */
+    @media (max-width: 768px) {
+      * {
+        box-sizing: border-box;
+      }
+      
+      .container {
+        max-width: 100%;
+        padding-left: 8px;
+        padding-right: 8px;
+      }
+    }
+
+    /* iPhone specific fixes */
+    @media only screen and (max-width: 480px) {
+      body {
+        font-size: 16px; /* Prevent zoom on input focus */
+      }
+      
+      input, textarea, select {
+        font-size: 16px; /* Prevent zoom */
+      }
+    }
+
     /* RTL Switch Thumb position and styling */
     /* Ensure the switch itself has RTL direction */
     button[role="switch"] {
@@ -407,7 +446,7 @@ export default function Layout({ children, currentPageName }) {
   }
 
   return (
-    <div className="min-h-screen flex md:flex-row transition-colors duration-300 bg-gradient-to-br from-[#FEFBF3] to-[#F8F4E6]">
+    <div className="min-h-screen flex flex-col md:flex-row transition-colors duration-300 bg-gradient-to-br from-[#FEFBF3] to-[#F8F4E6]">
       
       <aside className="hidden md:flex md:flex-col md:w-72 bg-white/80 backdrop-blur-sm shadow-xl p-6 border-l border-gray-200/50 rtl:border-r rtl:border-l-0">
         <Link to={createPageUrl('MyEvents')} className="flex items-center justify-center mb-8 w-full">
@@ -454,7 +493,7 @@ export default function Layout({ children, currentPageName }) {
 
       <div className="flex-1 flex flex-col">
         <header className="md:hidden bg-white/90 backdrop-blur-md shadow-lg sticky top-0 z-30">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-7xl mx-auto px-2 sm:px-4 lg:px-6">
             <div className="flex items-center justify-between h-20">
               <Link to={createPageUrl('MyEvents')} className="flex items-center flex-grow mr-4 rtl:ml-4 rtl:mr-0">
                 <img src={LOGO_URL} alt="Strings Logo" className="h-auto w-full max-w-[180px]" />
@@ -514,7 +553,7 @@ export default function Layout({ children, currentPageName }) {
             </div>
           </div>
         </header>
-        <main className="flex-grow p-4 sm:p-6 lg:p-8 overflow-y-auto">
+        <main className="flex-grow p-2 sm:p-4 lg:p-6 overflow-y-auto">
           {mainContent}
         </main>
       </div>
