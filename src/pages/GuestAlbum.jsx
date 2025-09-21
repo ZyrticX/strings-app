@@ -360,6 +360,7 @@ export default function GuestAlbumPage() {
   const [wishText, setWishText] = useState('');
   const [guestName, setGuestName] = useState('');
   const [isSubmittingWish, setIsSubmittingWish] = useState(false);
+  const [wishSubmitted, setWishSubmitted] = useState(false);
   const [approvedWishes, setApprovedWishes] = useState([]);
   
   // Add state for multi-select mode
@@ -1169,9 +1170,15 @@ export default function GuestAlbumPage() {
         approved: false
       });
       
-      showToast("success", "ברכה נשלחה!", "תודה! הברכה שלך נשלחה ותתווסף לאלבום לאחר אישור.");
+      showToast("success", "🎉 ברכה נשלחה בהצלחה!", "תודה רבה! הברכה שלך נשלחה בהצלחה ותופיע באלבום לאחר אישור מארגן האירוע.");
       setWishText('');
       setGuestName('');
+      setWishSubmitted(true);
+      
+      // Reset the submitted state after 3 seconds
+      setTimeout(() => {
+        setWishSubmitted(false);
+      }, 3000);
       
     } catch (error) {
       console.error("Error submitting wish:", error);
@@ -1937,12 +1944,19 @@ export default function GuestAlbumPage() {
                   <Button 
                     type="submit" 
                     disabled={isSubmittingWish || !currentUser || isPersonalAlbumView} // Disable for personal album view
-                    className="w-full btn-bordeaux h-12 text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl active:scale-95 disabled:opacity-60"
+                    className={`w-full h-12 text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl active:scale-95 disabled:opacity-60 transition-all duration-300 ${
+                      wishSubmitted ? 'bg-green-600 hover:bg-green-700 text-white' : 'btn-bordeaux'
+                    }`}
                   >
                     {isSubmittingWish ? (
                       <>
                         <Loader2 className="animate-spin h-5 w-5 ml-2 rtl:mr-2 rtl:ml-0" />
                         שולח ברכה...
+                      </>
+                    ) : wishSubmitted ? (
+                      <>
+                        <CheckCircle className="h-5 w-5 ml-2 rtl:mr-2 rtl:ml-0" />
+                        ברכה נשלחה בהצלחה!
                       </>
                     ) : (
                       <>
