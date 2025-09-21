@@ -421,15 +421,27 @@ export default function GuestAlbumPage() {
     // If neither is found, redirect to GuestAccess
     if (!currentEventId || !currentAccessCode) {
       console.error("GuestAlbumPage: Missing eventId or accessCode.");
-      setError("נדרש קוד גישה. אנא חזור ונסה שוב דרך הקישור או ה-QR.");
-      let redirectUrl = createPageUrl('GuestAccess');
-      if (currentAccessCode) {
-          redirectUrl += `?code=${currentAccessCode}&auth_required=true`;
-      } else if (localStorage.getItem('guestAccessCode')) {
-          redirectUrl += `?code=${localStorage.getItem('guestAccessCode')}&auth_required=true`;
+      console.log("🔄 Redirecting to GuestAccess for proper authentication");
+      
+      // Try to get event ID from URL parameters if available
+      const urlEventId = eventIdFromUrl || searchParams.get('eventId');
+      
+      let redirectUrl;
+      if (urlEventId) {
+        // Redirect to direct guest access with event ID
+        redirectUrl = `/guest/${urlEventId}`;
+        console.log("🎯 Redirecting to direct guest access:", redirectUrl);
+      } else if (currentAccessCode || localStorage.getItem('guestAccessCode')) {
+        // Fallback to legacy code-based access
+        const code = currentAccessCode || localStorage.getItem('guestAccessCode');
+        redirectUrl = createPageUrl('GuestAccess') + `?code=${code}&auth_required=true`;
+        console.log("🔑 Redirecting to code-based access:", redirectUrl);
       } else {
-          redirectUrl += `?auth_required=true`;
+        // No information available, show generic access page
+        redirectUrl = createPageUrl('GuestAccess');
+        console.log("❓ Redirecting to generic access page:", redirectUrl);
       }
+      
       navigate(redirectUrl);
       setIsLoading(false);
       return;
@@ -479,14 +491,24 @@ export default function GuestAlbumPage() {
         } else {
             // No valid authentication found
             if (!isPersonalAlbumView) {
-                const guestAccessCode = localStorage.getItem('guestAccessCode');
-                let redirectUrl = createPageUrl('GuestAccess');
-                if (guestAccessCode) {
-                    redirectUrl += `?code=${guestAccessCode}&auth_required=true`;
+                console.log("❌ No valid authentication found, redirecting to GuestAccess");
+                
+                // Try to use current event ID for direct access
+                if (currentEventId) {
+                    const directUrl = `/guest/${currentEventId}`;
+                    console.log("🎯 Redirecting to direct guest access:", directUrl);
+                    navigate(directUrl);
                 } else {
-                    redirectUrl += `?auth_required=true`;
+                    const guestAccessCode = localStorage.getItem('guestAccessCode');
+                    let redirectUrl = createPageUrl('GuestAccess');
+                    if (guestAccessCode) {
+                        redirectUrl += `?code=${guestAccessCode}&auth_required=true`;
+                    } else {
+                        redirectUrl += `?auth_required=true`;
+                    }
+                    console.log("🔑 Redirecting to GuestAccess:", redirectUrl);
+                    navigate(redirectUrl);
                 }
-                navigate(redirectUrl);
                 setIsLoading(false);
                 return;
             }
