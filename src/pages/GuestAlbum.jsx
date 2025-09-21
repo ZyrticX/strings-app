@@ -1572,16 +1572,16 @@ export default function GuestAlbumPage() {
       {/* Terms Modal - shows only once per event on this device/browser */}
       {showTermsModal && renderTermsModal()}
       {/* Header Section with LOGO */}
-      <header className="sticky top-0 z-40 pt-6 pb-3 px-4 text-center relative overflow-hidden shadow-sm">
+      <header className="sticky top-0 z-40 pt-6 pb-3 px-4 text-center relative overflow-hidden shadow-sm bg-gradient-to-br from-[#FEFBF3] to-[#F8F4E6] backdrop-blur-md border-b border-gray-200/30">
         {/* Background image div - must be positioned absolutely to be behind everything */}
         {eventDetails?.cover_image_url && (
           <div className="absolute inset-0 z-0">
             <img
               src={eventDetails.cover_image_url}
               alt=""
-              className="w-full h-full object-cover opacity-30 blur-sm"
+              className="w-full h-full object-cover opacity-20 blur-sm"
             />
-             <div className="absolute inset-0 bg-gradient-to-b from-white/10 via-white/5 to-white/0"></div>
+             <div className="absolute inset-0 bg-gradient-to-b from-white/20 via-white/10 to-white/5"></div>
           </div>
         )}
         {/* Content of the header - must have a higher z-index or be positioned relatively to appear on top */}
