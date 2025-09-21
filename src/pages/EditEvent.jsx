@@ -306,10 +306,10 @@ export default function EditEventPage() {
 
             if (event.event_date) {
                 const eventDateObj = parseISO(event.event_date);
-                const oneMonthAfterEvent = addMonths(eventDateObj, 1);
-                if (isPast(oneMonthAfterEvent)) {
+                const fourteenDaysAfterEvent = addDays(eventDateObj, 14);
+                if (isPast(fourteenDaysAfterEvent)) {
 setIsEditable(false);
-                    safeShowToast("info", "תקופת העריכה הסתיימה", "לא ניתן לערוך אירוע זה כיוון שעבר יותר מחודש מתאריך האירוע.");
+                    safeShowToast("info", "תקופת העריכה הסתיימה", "לא ניתן לערוך אירוע זה כיוון שעברו 14 יום מתאריך האירוע.");
                 }
             }
 
