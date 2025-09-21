@@ -50,7 +50,7 @@ const EventCard = ({ event, onDebug }) => {
             <img 
               src={event.cover_image_url} 
               alt={event.name} 
-              className="w-full h-48 sm:h-56 object-cover" 
+              className="w-full h-40 sm:h-48 lg:h-56 object-cover" 
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
             <div className="absolute bottom-4 left-4 rtl:right-4 rtl:left-auto">
@@ -63,7 +63,7 @@ const EventCard = ({ event, onDebug }) => {
             </div>
           </div>
         ) : (
-          <div className={`w-full h-48 sm:h-56 bg-gradient-to-br ${headerImageDefaultBg} flex items-center justify-center relative overflow-hidden`}>
+          <div className={`w-full h-40 sm:h-48 lg:h-56 bg-gradient-to-br ${headerImageDefaultBg} flex items-center justify-center relative overflow-hidden`}>
             <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
             <CalendarDays className="w-20 h-20 text-white/70" />
             <div className="absolute bottom-4 left-4 rtl:right-4 rtl:left-auto">
@@ -84,33 +84,33 @@ const EventCard = ({ event, onDebug }) => {
         </div>
       </CardHeader>
 
-      <CardContent className={`p-4 sm:p-6 bg-gradient-to-br ${cardBgGradient}`}>
-        <CardTitle className="text-xl sm:text-2xl font-bold text-bordeaux dark:text-[#d4a574] mb-2 line-clamp-2"> 
+      <CardContent className={`p-3 sm:p-4 lg:p-6 bg-gradient-to-br ${cardBgGradient}`}>
+        <CardTitle className="text-lg sm:text-xl lg:text-2xl font-bold text-bordeaux dark:text-[#d4a574] mb-2 line-clamp-2"> 
           {event.name}
         </CardTitle>
         
-        <div className="space-y-3">
-          <div className="flex items-center justify-between p-3 bg-[#5C1A1B]/5 dark:bg-bordeaux/10 rounded-xl border border-[#5C1A1B]/10 dark:border-bordeaux/20">
+        <div className="space-y-2 sm:space-y-3">
+          <div className="flex items-center justify-between p-2 sm:p-3 bg-[#5C1A1B]/5 dark:bg-bordeaux/10 rounded-xl border border-[#5C1A1B]/10 dark:border-bordeaux/20">
             <div className="flex items-center">
               <Users className="w-5 h-5 ml-2 rtl:mr-2 rtl:ml-0" />
               <span className="text-sm font-medium text-[#4a1516] dark:text-gray-300">קוד גישה:</span>
             </div>
             <div className="flex items-center space-x-2 rtl:space-x-reverse">
-              <span className="font-mono text-lg font-bold text-[#5C1A1B] dark:text-[#d4a574] bg-white dark:bg-gray-700 px-3 py-1 rounded-lg shadow-sm border border-[#5C1A1B]/20 dark:border-bordeaux/30">
+              <span className="font-mono text-sm sm:text-base lg:text-lg font-bold text-[#5C1A1B] dark:text-[#d4a574] bg-white dark:bg-gray-700 px-2 sm:px-3 py-1 rounded-lg shadow-sm border border-[#5C1A1B]/20 dark:border-bordeaux/30">
                 {event.access_code}
               </span>
               <Button 
                 variant="ghost" 
                 size="icon" 
                 onClick={copyAccessCode} 
-                className="h-10 w-10 rounded-lg hover:bg-[#5C1A1B]/10 dark:hover:bg-bordeaux/20 active:scale-95 transition-all"
+                className="h-8 w-8 sm:h-10 sm:w-10 rounded-lg hover:bg-[#5C1A1B]/10 dark:hover:bg-bordeaux/20 active:scale-95 transition-all"
               >
-                <Copy className="w-5 h-5 text-bordeaux dark:text-[#d4a574]" />
+                <Copy className="w-4 h-4 sm:w-5 sm:h-5 text-bordeaux dark:text-[#d4a574]" />
               </Button>
             </div>
           </div>
           
-          <div className="flex items-center p-3 bg-gray-50 dark:bg-gray-700/50 rounded-xl border border-gray-200 dark:border-gray-600">
+          <div className="flex items-center p-2 sm:p-3 bg-gray-50 dark:bg-gray-700/50 rounded-xl border border-gray-200 dark:border-gray-600">
             {event.advance_payment_status === 'paid' ? (
               <>
                 <CheckCircle className="w-5 h-5 ml-2 rtl:mr-2 rtl:ml-0 text-green-600 dark:text-green-400" />
@@ -126,14 +126,14 @@ const EventCard = ({ event, onDebug }) => {
         </div>
       </CardContent>
 
-      <CardFooter className={`p-4 sm:p-6 bg-gray-100/60 dark:bg-gray-700/60 border-t border-gray-200/50 dark:border-gray-600/50`}>
+      <CardFooter className={`p-3 sm:p-4 lg:p-6 bg-gray-100/60 dark:bg-gray-700/60 border-t border-gray-200/50 dark:border-gray-600/50`}>
         <div className="w-full">
           <Button 
             variant="outline" 
             onClick={handleEditClick}
-            className="btn-outline-bordeaux h-12 rounded-xl font-medium transition-all active:scale-95 w-full"
+            className="btn-outline-bordeaux h-10 sm:h-12 rounded-xl font-medium transition-all active:scale-95 w-full text-sm sm:text-base"
           >
-            <Edit3 className="w-4 h-4 ml-2 rtl:mr-2 rtl:ml-0" />
+            <Edit3 className="w-4 h-4 ml-1 sm:ml-2 rtl:mr-1 rtl:ml-0 sm:rtl:mr-2" />
             עריכה וניהול
           </Button>
         </div>
@@ -319,35 +319,35 @@ export default function MyEventsPage() {
 
   return (
     <div className="min-h-screen flex flex-col" dir="rtl">
-      <div className="p-4 md:p-8 flex-grow">
-        <div className="flex flex-col sm:flex-row justify-between items-center mb-8 gap-4">
+      <div className="flex-grow">
+        <div className="flex flex-col sm:flex-row justify-between items-center mb-6 sm:mb-8 gap-4">
           <div>
-            <h1 className="text-3xl sm:text-4xl font-bold text-bordeaux dark:text-[#d4a574]">האירועים שלי</h1>
-            <p className="text-gray-600 dark:text-gray-400 mt-1 text-lg">נהל את כל אירועי הזיכרונות שלך במקום אחד</p>
+            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-bordeaux dark:text-[#d4a574]">האירועים שלי</h1>
+            <p className="text-gray-600 dark:text-gray-400 mt-1 text-sm sm:text-base lg:text-lg">נהל את כל אירועי הזיכרונות שלך במקום אחד</p>
           </div>
         </div>
 
         {/* Search and Filter UI */}
-        <div className="mb-6 flex flex-col md:flex-row items-center gap-4">
-          <div className="relative w-full md:w-1/2">
+        <div className="mb-4 sm:mb-6 flex flex-col sm:flex-row items-center gap-3 sm:gap-4">
+          <div className="relative w-full sm:w-1/2 lg:w-1/3">
             <input
               type="search"
               placeholder="חפש אירועים..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="block w-full pl-10 pr-4 py-2 text-gray-900 dark:text-white bg-gray-50 dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-bordeaux focus:border-bordeaux transition-shadow shadow-sm"
+              className="block w-full pl-10 pr-3 py-2 text-sm sm:text-base text-gray-900 dark:text-white bg-gray-50 dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-bordeaux focus:border-bordeaux transition-shadow shadow-sm"
             />
             {/* Right side icon for RTL */}
             <div className="absolute inset-y-0 left-0 rtl:right-0 rtl:left-auto flex items-center pl-3 rtl:pr-3 pointer-events-none">
-              <SearchIcon className="h-5 w-5 text-gray-400" />
+              <SearchIcon className="h-4 w-4 sm:h-5 sm:w-5 text-gray-400" />
             </div>
           </div>
 
-          <div className="flex items-center space-x-3 rtl:space-x-reverse">
-            <Button variant="outline" size="sm" className={`rounded-full ${activeFilters.upcoming ? 'bg-bordeaux/10 border-bordeaux text-bordeaux' : 'border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300'}`} onClick={() => setActiveFilters({...activeFilters, upcoming: !activeFilters.upcoming})}>
+          <div className="flex items-center gap-2 sm:gap-3 w-full sm:w-auto justify-center">
+            <Button variant="outline" size="sm" className={`rounded-full px-3 py-1 text-xs sm:text-sm ${activeFilters.upcoming ? 'bg-bordeaux/10 border-bordeaux text-bordeaux' : 'border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300'}`} onClick={() => setActiveFilters({...activeFilters, upcoming: !activeFilters.upcoming})}>
               עתידיים
             </Button>
-            <Button variant="outline" size="sm" className={`rounded-full ${activeFilters.past ? 'bg-bordeaux/10 border-bordeaux text-bordeaux' : 'border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300'}`} onClick={() => setActiveFilters({...activeFilters, past: !activeFilters.past})}>
+            <Button variant="outline" size="sm" className={`rounded-full px-3 py-1 text-xs sm:text-sm ${activeFilters.past ? 'bg-bordeaux/10 border-bordeaux text-bordeaux' : 'border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300'}`} onClick={() => setActiveFilters({...activeFilters, past: !activeFilters.past})}>
               היסטוריים
             </Button>
           </div>
@@ -362,23 +362,23 @@ export default function MyEventsPage() {
             </p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 auto-rows-fr">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 pb-24 sm:pb-20">
             {filteredAndSortedEvents.map(event => <EventCard key={event.id} event={event} onDelete={() => handleDeleteEvent(event.id)} onDebug={() => debugEventDeletion(event.id)} />)}
           </div>
         )}
       </div>
       
 
-      {/* "Create Event" FAB with text for all screen sizes */}
-      <div className="fixed bottom-8 right-8 rtl:left-8 rtl:right-auto z-50">
+      {/* "Create Event" FAB with responsive design */}
+      <div className="fixed bottom-4 sm:bottom-6 right-4 sm:right-6 rtl:left-4 rtl:right-auto sm:rtl:left-6 z-50">
          <Button 
             onClick={() => navigate(createPageUrl('CreateEvent'))} 
-            className="btn-bordeaux h-14 rounded-full shadow-xl hover:shadow-2xl transition-all duration-300 active:scale-95 flex items-center justify-center px-5 gap-2"
+            className="btn-bordeaux h-12 sm:h-14 rounded-full shadow-xl hover:shadow-2xl transition-all duration-300 active:scale-95 flex items-center justify-center px-3 sm:px-5 gap-1 sm:gap-2"
             aria-label="צור אירוע חדש"
             title="צור אירוע חדש"
           >
-            <PlusCircle className="h-6 w-6" />
-            <span className="font-semibold text-md">צור אירוע חדש</span>
+            <PlusCircle className="h-5 w-5 sm:h-6 sm:w-6" />
+            <span className="font-semibold text-sm sm:text-md hidden xs:inline">צור אירוע חדש</span>
         </Button>
       </div>
     </div>
