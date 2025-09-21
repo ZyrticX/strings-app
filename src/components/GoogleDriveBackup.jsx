@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Progress } from '@/components/ui/progress';
-import { Download, Cloud, CheckCircle, AlertTriangle, Loader2, Copy } from 'lucide-react';
+import { Download, Cloud, CheckCircle, AlertTriangle, Loader2, Copy, Archive } from 'lucide-react';
+import JSZip from 'jszip';
 
 const GoogleDriveBackup = ({ mediaItems, eventName }) => {
   const [isBackingUp, setIsBackingUp] = useState(false);
@@ -64,6 +65,19 @@ const GoogleDriveBackup = ({ mediaItems, eventName }) => {
   };
 
   const downloadAllFiles = async () => {
+    // Always try to create a ZIP file first
+    try {
+      await downloadAsZip();
+      return;
+    } catch (error) {
+      console.log('ZIP download failed, falling back to individual downloads:', error);
+      setBackupStatus({ 
+        type: 'error', 
+        message: 'שגיאה ביצירת קובץ ZIP. מוריד קבצים בנפרד...' 
+      });
+    }
+    
+    // Fallback to individual downloads
     for (const link of downloadLinks) {
       try {
         // Create a temporary link and trigger download
@@ -75,11 +89,66 @@ const GoogleDriveBackup = ({ mediaItems, eventName }) => {
         document.body.removeChild(a);
         
         // Small delay between downloads to avoid overwhelming the browser
-        await new Promise(resolve => setTimeout(resolve, 500));
+        await new Promise(resolve => setTimeout(resolve, 800));
       } catch (error) {
         console.error(`Failed to download ${link.filename}:`, error);
       }
     }
+    
+    setBackupStatus({ 
+      type: 'success', 
+      message: `הורדו ${downloadLinks.length} קבצים בנפרד בהצלחה!` 
+    });
+  };
+
+  const downloadAsZip = async () => {
+    setBackupStatus({ type: 'info', message: 'יוצר קובץ ZIP...' });
+    
+    const zip = new JSZip();
+    
+    // Add all files to the ZIP
+    for (let i = 0; i < downloadLinks.length; i++) {
+      const link = downloadLinks[i];
+      try {
+        setBackupStatus({ 
+          type: 'info', 
+          message: `מוריד קובץ ${i + 1} מתוך ${downloadLinks.length}...` 
+        });
+        
+        const response = await fetch(link.url);
+        const blob = await response.blob();
+        
+        // Add file to ZIP with proper filename
+        zip.file(link.filename, blob);
+        
+      } catch (error) {
+        console.error(`Failed to fetch ${link.filename}:`, error);
+        setBackupStatus({ 
+          type: 'error', 
+          message: `שגיאה בהורדת ${link.filename}. ממשיך עם שאר הקבצים...` 
+        });
+      }
+    }
+    
+    setBackupStatus({ type: 'info', message: 'יוצר קובץ ZIP...' });
+    
+    // Generate ZIP file
+    const zipBlob = await zip.generateAsync({ type: 'blob' });
+    
+    // Create download link for ZIP
+    const url = URL.createObjectURL(zipBlob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `${eventName}_גיבוי_מדיה.zip`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    
+    setBackupStatus({ 
+      type: 'success', 
+      message: `נוצר קובץ ZIP עם ${downloadLinks.length} קבצים! הקובץ נשמר בתיקיית ההורדות.` 
+    });
   };
 
   const copyLinksToClipboard = () => {
@@ -158,8 +227,8 @@ const GoogleDriveBackup = ({ mediaItems, eventName }) => {
               onClick={downloadAllFiles}
               className="btn-bordeaux flex-1"
             >
-              <Download className="w-4 h-4 ml-2" />
-              הורד את כל הקבצים ({downloadLinks.length})
+              <Archive className="w-4 h-4 ml-2" />
+              הורד כקובץ ZIP ({downloadLinks.length} קבצים)
             </Button>
             <Button
               onClick={copyLinksToClipboard}

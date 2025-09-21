@@ -980,35 +980,7 @@ export default function GuestAlbumPage() {
     if (!itemToDownload) itemToDownload = selectedMediaItem;
     if (!itemToDownload) return;
 
-    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-        
-    if (isMobile) {
-        // Try native sharing first on mobile
-        try {
-            const response = await fetch(itemToDownload.file_url);
-            const blob = await response.blob();
-            const extension = itemToDownload.file_type === 'image' ? 'jpg' : 'mp4';
-            const filename = `${eventDetails?.name || 'אלבום'}_${itemToDownload.uploader_name || 'קובץ'}.${extension}`;
-            const file = new File([blob], filename, { type: blob.type });
-            
-            if (navigator.share && navigator.canShare && navigator.canShare({ files: [file] })) {
-                const eventDate = eventDetails?.event_date ? new Date(eventDetails.event_date).toLocaleDateString('he-IL') : '';
-                const shareText = `מתוך האירוע "${eventDetails?.name || 'אלבום'}"${eventDate ? ` - ${eventDate}` : ''} - באמצעות "סטרינגס"`;
-                
-                await navigator.share({
-                    title: shareText,
-                    text: shareText,
-                    files: [file]
-                });
-                showToast("success", "שותף בהצלחה!", "בחר 'שמור לתמונות' כדי לשמור בגלריה."); 
-                return;
-            }
-        } catch (error) {
-            console.log('Native sharing not available, falling back to download');
-        }
-    }
-
-    // Fallback to regular download
+    // Always do direct download - no sharing popup before download
     try {
         const response = await fetch(itemToDownload.file_url);
         const blob = await response.blob();
@@ -1028,9 +1000,10 @@ export default function GuestAlbumPage() {
         
         URL.revokeObjectURL(url);
         
+        const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
         const message = isMobile 
-            ? "הקובץ הורד! בדפדפן Safari/Chrome: לחץ על הקובץ בתיקיית ההורדות ובחר 'שמור לתמונות'."
-            : "הקובץ הורד בהצלחה!";
+            ? "✅ הקובץ הורד! בדפדפן Safari/Chrome: לחץ על הקובץ בתיקיית ההורדות ובחר 'שמור לתמונות'."
+            : "✅ הקובץ הורד בהצלחה!";
         
         showToast("success", "הורדה הושלמה", message); 
     } catch (error) {
@@ -1291,37 +1264,7 @@ export default function GuestAlbumPage() {
         return;
     }
 
-    // Check if user is on mobile device
-    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-    
-    if (isMobile && selectedMediaItems.length === 1) {
-        // For single item on mobile, try to use native sharing first
-        try {
-            const item = selectedMediaItems[0];
-            const response = await fetch(item.file_url);
-            const blob = await response.blob();
-            const extension = item.file_type === 'image' ? 'jpg' : 'mp4';
-            const filename = `${eventDetails?.name || 'אלבום'}_${item.uploader_name || 'קובץ'}.${extension}`;
-            const file = new File([blob], filename, { type: blob.type });
-            
-            if (navigator.share && navigator.canShare && navigator.canShare({ files: [file] })) {
-                const eventDate = eventDetails?.event_date ? new Date(eventDetails.event_date).toLocaleDateString('he-IL') : '';
-                const shareText = `מתוך האירוע "${eventDetails?.name || 'אלבום'}"${eventDate ? ` - ${eventDate}` : ''} - באמצעות "סטרינגס"`;
-                
-                await navigator.share({
-                    title: shareText,
-                    text: shareText,
-                    files: [file]
-                });
-                showToast("success", "שותף בהצלחה!", "התמונה נשמרה או שותפה באפליקציה שבחרת.");
-                handleDeselectAll();
-                return;
-            }
-        } catch (error) {
-            console.log('Native sharing not available, falling back to download');
-        }
-    }
-
+    // Always do direct download - no sharing popup
     showToast("info", "מתחיל הורדה", `מוריד ${selectedMediaItems.length} קבצים...`);
 
     let successCount = 0;
@@ -1689,21 +1632,17 @@ export default function GuestAlbumPage() {
                   האירוע מתחיל בתאריך: {format(new Date(uploadStatus.eventStartTime), 'dd/MM/yyyy בשעה HH:mm', { locale: he })}
                 </p>
               )}
-              {uploadStatus.timeRemaining && (
-                <p className="text-sm text-orange-600 mt-1">זמן שנותר: {uploadStatus.timeRemaining}</p>
-              )}
             </div>
           </div>
         </div>
       )}
 
-      {uploadStatus.canUpload && uploadStatus.timeRemaining && (
+      {uploadStatus.canUpload && (
         <div className="mx-4 mb-4 p-3 bg-green-50 border border-green-200 rounded-lg">
           <div className="flex items-center gap-2">
             <CheckCircle className="w-5 h-5 text-green-600" />
             <div>
               <p className="font-medium text-green-800">ניתן להעלות תמונות</p>
-              <p className="text-sm text-green-600">זמן שנותר להעלאה: {uploadStatus.timeRemaining}</p>
             </div>
           </div>
         </div>
@@ -1907,7 +1846,6 @@ export default function GuestAlbumPage() {
                                 {/* Media info overlay */}
                                 <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200 rounded-b-xl">
                                     <p className="text-white text-xs truncate">{item.caption || 'ללא תיאור'}</p>
-                                    <p className="text-white/80 text-xs">{item.uploader_name || 'אורח'}</p>
                                 </div>
                             </motion.div>
                         ))}
@@ -2139,11 +2077,13 @@ export default function GuestAlbumPage() {
           <Button
             onClick={() => galleryInputRef.current?.click()}
             size="icon"
-            className="w-16 h-16 rounded-full text-bordeaux shadow-lg hover:shadow-xl transition-all duration-300 active:scale-95 flex items-center justify-center"
+            className="w-16 h-16 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 active:scale-95 flex items-center justify-center"
             title="העלה מהגלריה"
-            style={{ backgroundColor: 'var(--color-beige-cream)', color: 'var(--color-bordeaux)' }}
-            onMouseOver={(e) => { e.currentTarget.style.backgroundColor = 'var(--color-bordeaux-light)'; e.currentTarget.style.color = 'white'; }}
-            onMouseOut={(e) => { e.currentTarget.style.backgroundColor = 'var(--color-beige-cream)'; e.currentTarget.style.color = 'var(--color-bordeaux)'; }}
+            style={{ 
+              backgroundColor: 'var(--color-beige-cream)', 
+              color: 'var(--color-bordeaux)',
+              border: '2px solid var(--color-bordeaux)'
+            }}
           >
             <Upload className="w-7 h-7" />
           </Button>

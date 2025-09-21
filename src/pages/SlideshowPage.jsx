@@ -155,7 +155,7 @@ export default function SlideshowPage() {
             <img 
               src={LOGO_URL} 
               alt="Strings Logo" 
-              className="w-auto h-32 drop-shadow-2xl opacity-95" 
+              className="w-auto h-40 drop-shadow-2xl opacity-95" 
             />
           </div>
         </div>
@@ -207,7 +207,7 @@ export default function SlideshowPage() {
           <img 
             src={LOGO_URL} 
             alt="Strings Logo" 
-            className="w-auto h-32 drop-shadow-2xl opacity-95" 
+            className="w-auto h-40 drop-shadow-2xl opacity-95" 
           />
         </div>
       </div>
