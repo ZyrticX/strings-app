@@ -4,6 +4,7 @@ import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { Event } from '@/api/entities';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
+import { Checkbox } from '@/components/ui/checkbox';
 import { Loader2, ShieldAlert, LogIn, Image as ImageIcon } from 'lucide-react';
 import { createPageUrl } from '@/utils';
 import { User } from '@/api/entities';
@@ -24,6 +25,7 @@ export default function GuestAccessPage() {
   // Guest login states
   const [guestName, setGuestName] = useState('');
   const [guestEmail, setGuestEmail] = useState('');
+  const [emailConsent, setEmailConsent] = useState(false);
   
   // Effect to handle direct event access via URL
   useEffect(() => {
@@ -201,11 +203,17 @@ export default function GuestAccessPage() {
       return;
     }
     
+    if (!emailConsent) {
+      setError("יש לאשר קבלת מייל עם האלבום האישי שלך בסוף האירוע.");
+      return;
+    }
+    
     // Store guest info in localStorage
     const guestInfo = {
       name: name,
       email: email,
       eventId: eventDetails.id,
+      emailConsent: emailConsent,
       timestamp: Date.now()
     };
     
@@ -293,19 +301,34 @@ export default function GuestAccessPage() {
               className="h-12 text-center rounded-xl border-gray-300 focus:border-bordeaux focus:ring-2 focus:ring-bordeaux/50"
               autoFocus
             />
-            <Input
-              type="email"
-              value={guestEmail}
-              onChange={(e) => setGuestEmail(e.target.value)}
-              placeholder="כתובת האימייל שלך"
-              className="h-12 text-center rounded-xl border-gray-300 focus:border-bordeaux focus:ring-2 focus:ring-bordeaux/50"
-            />
-            <Button 
-              type="submit"
-              className="w-full btn-bordeaux h-12 text-lg font-semibold rounded-xl"
-            >
-              המשך לאלבום
-            </Button>
+                   <Input
+                     type="email"
+                     value={guestEmail}
+                     onChange={(e) => setGuestEmail(e.target.value)}
+                     placeholder="כתובת האימייל שלך"
+                     className="h-12 text-center rounded-xl border-gray-300 focus:border-bordeaux focus:ring-2 focus:ring-bordeaux/50"
+                   />
+                   
+                   {/* Email consent checkbox */}
+                   <div className="flex items-start gap-3 p-4 bg-blue-50 rounded-xl border border-blue-200">
+                     <Checkbox
+                       id="email-consent"
+                       checked={emailConsent}
+                       onCheckedChange={setEmailConsent}
+                       className="mt-1"
+                     />
+                     <label htmlFor="email-consent" className="text-sm text-gray-700 leading-relaxed cursor-pointer">
+                       <span className="font-medium">אני מאשר/ת קבלת מייל</span> עם האלבום האישי שלי בסוף האירוע (24 שעות לאחר סיום האירוע). המייל יכלול את כל התמונות שהעליתי לאירוע.
+                     </label>
+                   </div>
+                   
+                   <Button
+                     type="submit"
+                     className="w-full btn-bordeaux h-12 text-lg font-semibold rounded-xl"
+                     disabled={!emailConsent}
+                   >
+                     המשך לאלבום
+                   </Button>
           </form>
           
           {error && (
