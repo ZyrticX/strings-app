@@ -2,8 +2,8 @@ VERCEL DEPLOYMENT TRIGGER
 =========================
 
 This file forces Vercel to redeploy with latest changes.
-Version: 2.7
-Timestamp: 2025-01-19 19:55
+Version: 2.8
+Timestamp: 2025-01-19 20:15
 
 All fixes included:
 - React Error #300 fixes
@@ -35,3 +35,5 @@ All fixes included:
 - IMPROVED: Header background with backdrop-blur and border for better visibility
 
 SUCCESS: GuestAlbum sticky header fixed!
+- FIXED: GuestAlbum info tab now fully RTL formatted
+- IMPROVED: All text in info tab properly right-aligned

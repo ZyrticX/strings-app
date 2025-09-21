@@ -1967,15 +1967,15 @@ export default function GuestAlbumPage() {
             </div>
           </TabsContent>
 
-          <TabsContent value="info" className="text-center" dir="rtl">
+          <TabsContent value="info" className="text-right" dir="rtl">
             <Card className="bg-white/95 dark:bg-gray-800/95 backdrop-blur-sm shadow-xl rounded-2xl border border-gray-200/60 dark:border-gray-700/60">
-              <CardHeader className="pb-4">
-                <CardTitle className="text-2xl font-semibold text-bordeaux dark:text-[#d4a574]">מידע ויצירת קשר</CardTitle>
-                <CardDescription className="text-gray-600 dark:text-gray-400">נהנית מהאלבום? רוצה כזה גם לאירוע שלך?</CardDescription>
+              <CardHeader className="pb-4 text-right">
+                <CardTitle className="text-2xl font-semibold text-bordeaux dark:text-[#d4a574] text-right">מידע ויצירת קשר</CardTitle>
+                <CardDescription className="text-gray-600 dark:text-gray-400 text-right">נהנית מהאלבום? רוצה כזה גם לאירוע שלך?</CardDescription>
               </CardHeader>
-              <CardContent className="space-y-8 pt-2 pb-8 px-6">
-                <div>
-                  <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-3">צור קשר עם STRINGS:</h3>
+              <CardContent className="space-y-8 pt-2 pb-8 px-6 text-right">
+                <div className="text-right">
+                  <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-3 text-right">צור קשר עם STRINGS:</h3>
                   <div className="flex justify-center items-center space-x-6 rtl:space-x-reverse">
                     <a href="https://wa.me/972542565889" target="_blank" rel="noopener noreferrer" className="text-green-500 hover:text-green-600 transition-colors p-3 rounded-full bg-green-50 dark:bg-green-900/20">
                       <WhatsAppIcon className="w-8 h-8" />
@@ -1991,41 +1991,41 @@ export default function GuestAlbumPage() {
 
                 {/* תנאי שימוש והעלאת מדיה - מעודכן */}
                 <div className="text-right bg-gray-50/80 dark:bg-gray-700/30 rounded-xl p-6 border border-gray-200/50 dark:border-gray-600/50">
-                  <h3 className="text-xl font-bold text-bordeaux dark:text-[#d4a574] mb-4 text-center">תנאי שימוש והעלאת מדיה</h3>
+                  <h3 className="text-xl font-bold text-bordeaux dark:text-[#d4a574] mb-4 text-right">תנאי שימוש והעלאת מדיה</h3>
                   
-                  <div className="text-gray-700 dark:text-gray-300 leading-relaxed space-y-3 text-base">
-                    <p className="font-medium mb-4">
+                  <div className="text-gray-700 dark:text-gray-300 leading-relaxed space-y-3 text-base text-right">
+                    <p className="font-medium mb-4 text-right">
                       על ידי העלאת תמונות וסרטונים ("מדיה") לאלבום האירוע של STRINGS ("השירות"), הנך מאשר ומסכים לתנאים הבאים:
                     </p>
                     
-                    <div className="space-y-4 border-r-4 border-bordeaux/30 dark:border-[#d4a574]/30 pr-4 mr-2">
-                      <p>
+                    <div className="space-y-4 border-r-4 border-bordeaux/30 dark:border-[#d4a574]/30 pr-4 mr-2 text-right">
+                      <p className="text-right">
                         <span className="font-semibold">1.</span> שים לב שהאלבום הינו אלבום משותף וכי לכל בעלי הגישה לאלבום תהיה הזכות לצפות, להוריד ולשתף מדיה ללא הגבלה. באחריותך לשים לב לתוכן שעולה על ידך לאלבום.
                       </p>
                       
-                      <p>
+                      <p className="text-right">
                         <span className="font-semibold">2.</span> הנך מעניק ל-STRINGS ולמארגני האירוע רישיון לא בלעדי, עולמי, ללא תמלוגים, להשתמש, לשכפל, להפיץ, להציג ולבצע את המדיה שהועלתה במסגרת השירות ובקשר לאירוע הספציפי.
                       </p>
                       
-                      <p>
+                      <p className="text-right">
                         <span className="font-semibold">3.</span> חל איסור מוחלט להעלות מדיה פוגענית, בלתי חוקית, מאיימת, מטרידה, גזענית, או כזו המפרה זכויות צד שלישי כלשהו, לרבות קטינים.
                       </p>
                       
-                      <p>
+                      <p className="text-right">
                         <span className="font-semibold">4.</span> STRINGS ומארגני האירוע שומרים לעצמם את הזכות המלאה לסרב להעלות, להסיר או לערוך כל מדיה לפי שיקול דעתם הבלעדי, ללא הודעה מוקדמת.
                       </p>
                       
-                      <p>
+                      <p className="text-right">
                         <span className="font-semibold">5.</span> הנך פוטר את STRINGS, עובדיו, מנהליו ומי מטעמה, וכן את מארגני האירוע, מכל אחריות לכל נזק, ישיר או עקיף, שעלול לקרות לך או לצד שלישי כתוצאה מהעלאת המדיה או השימוש בה.
                       </p>
                       
-                      <p>
+                      <p className="text-right">
                         <span className="font-semibold">6.</span> שים לב כי האלבום המשותף ימחק אוטומטית כחודש מתאריך האירוע וכי לא יהיה ניתן עוד לצפות בתוכן האלבום. ניתן לצפות באלבום, לשמור ולשתף את המדיה לפני מחיקתה ולא יהיה ניתן לשחזר מדיה שנמחקה.
                       </p>
-                      <p>
+                      <p className="text-right">
                         <span className="font-semibold">7.</span> שים לב כי ניתן להעלות תמונות רק במהלך 24 שעות מתחילת האירוע. לא ניתן להעלות תמונות לפני או אחרי חלון זמן זה.
                       </p>
-                      <p>
+                      <p className="text-right">
                         <span className="font-semibold">8.</span> האירוע וכל המדיה שלו ימחקו אוטומטית 14 ימים לאחר תאריך סיום האירוע. הקפד לגבות את התמונות שלך לפני המחיקה.
                       </p>
                     </div>
