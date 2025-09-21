@@ -969,9 +969,12 @@ export default function GuestAlbumPage() {
             const file = new File([blob], filename, { type: blob.type });
             
             if (navigator.share && navigator.canShare && navigator.canShare({ files: [file] })) {
+                const eventDate = eventDetails?.event_date ? new Date(eventDetails.event_date).toLocaleDateString('he-IL') : '';
+                const shareText = `מתוך האירוע "${eventDetails?.name || 'אלבום'}"${eventDate ? ` - ${eventDate}` : ''} - באמצעות "סטרינגס"`;
+                
                 await navigator.share({
-                    title: `${eventDetails?.name || 'אלבום'} - ${itemToDownload.uploader_name || 'תמונה'}`,
-                    text: 'תמונה מאלבום האירוע',
+                    title: shareText,
+                    text: shareText,
                     files: [file]
                 });
                 showToast("success", "שותף בהצלחה!", "בחר 'שמור לתמונות' כדי לשמור בגלריה."); 
@@ -1032,17 +1035,23 @@ export default function GuestAlbumPage() {
         const file = new File([blob], fileName, { type: blob.type });
 
         if (navigator.canShare && navigator.canShare({ files: [file] })) {
+          const eventDate = eventDetails?.event_date ? new Date(eventDetails.event_date).toLocaleDateString('he-IL') : '';
+          const shareText = `מתוך האירוע "${eventDetails?.name || 'אלבום'}"${eventDate ? ` - ${eventDate}` : ''} - באמצעות "סטרינגס"`;
+          
           await navigator.share({
             files: [file],
-            title: eventDetails?.name || 'שיתוף מדיה מהאירוע',
-            text: itemToShare.caption || `מתוך האירוע "${eventDetails?.name || ''}"`,
+            title: shareText,
+            text: itemToShare.caption ? `${itemToShare.caption}\n\n${shareText}` : shareText,
           });
           showToast("info", "שיתוף נפתח", "בחר כיצד לשתף את הקובץ.");
         } else {
           // Fallback to sharing URL if files cannot be shared or if specific file type is not supported for sharing
+          const eventDate = eventDetails?.event_date ? new Date(eventDetails.event_date).toLocaleDateString('he-IL') : '';
+          const shareText = `מתוך האירוע "${eventDetails?.name || 'אלבום'}"${eventDate ? ` - ${eventDate}` : ''} - באמצעות "סטרינגס"`;
+          
           await navigator.share({
-            title: eventDetails?.name || 'שיתוף מדיה מהאירוע',
-            text: itemToShare.caption || `צפו במדיה מתוך האירוע "${eventDetails?.name || ''}" (לחץ על הקישור):`,
+            title: shareText,
+            text: itemToShare.caption ? `${itemToShare.caption}\n\n${shareText}\n\nצפו במדיה (לחץ על הקישור):` : `${shareText}\n\nצפו במדיה (לחץ על הקישור):`,
             url: itemToShare.file_url,
           });
           showToast("info", "שיתוף קישור נפתח", "הקובץ עצמו לא נתמך לשיתוף ישיר, במקום זה שותף קישור.");
@@ -1051,9 +1060,12 @@ export default function GuestAlbumPage() {
         console.error('Error sharing file, falling back to URL share:', error);
         // Fallback to sharing URL if fetching blob or file creation fails
         try {
+            const eventDate = eventDetails?.event_date ? new Date(eventDetails.event_date).toLocaleDateString('he-IL') : '';
+            const shareText = `מתוך האירוע "${eventDetails?.name || 'אלבום'}"${eventDate ? ` - ${eventDate}` : ''} - באמצעות "סטרינגס"`;
+            
             await navigator.share({
-                title: eventDetails?.name || 'שיתוף מדיה מהאירוע',
-                text: itemToShare.caption || `צפו במדיה מתוך האירוע "${eventDetails?.name || ''}" (לחץ על הקישור):`,
+                title: shareText,
+                text: itemToShare.caption ? `${itemToShare.caption}\n\n${shareText}\n\nצפו במדיה (לחץ על הקישור):` : `${shareText}\n\nצפו במדיה (לחץ על הקישור):`,
                 url: itemToShare.file_url,
             });
             showToast("info", "שיתוף קישור נפתח", "אירעה שגיאה בשיתוף הקובץ, במקום זה שותף קישור.");
@@ -1202,18 +1214,24 @@ export default function GuestAlbumPage() {
             }
 
             if (files.length > 0 && navigator.canShare && navigator.canShare({ files })) {
+                const eventDate = eventDetails?.event_date ? new Date(eventDetails.event_date).toLocaleDateString('he-IL') : '';
+                const shareText = `מתוך האירוע "${eventDetails?.name || 'אלבום'}"${eventDate ? ` - ${eventDate}` : ''} - באמצעות "סטרינגס"`;
+                
                 await navigator.share({
                     files,
-                    title: `${files.length} קבצים מהאירוע "${eventDetails?.name || ''}"`,
-                    text: `שיתוף ${files.length} תמונות וסרטונים מהאירוע`
+                    title: shareText,
+                    text: `${files.length} תמונות וסרטונים\n\n${shareText}`
                 });
                 showToast("success", "שיתוף נפתח", `${files.length} קבצים נשלחו לשיתוף.`);
             } else {
                 // Fallback: share URLs as text
+                const eventDate = eventDetails?.event_date ? new Date(eventDetails.event_date).toLocaleDateString('he-IL') : '';
+                const shareText = `מתוך האירוע "${eventDetails?.name || 'אלבום'}"${eventDate ? ` - ${eventDate}` : ''} - באמצעות "סטרינגס"`;
                 const urls = selectedMediaItems.map(item => item.file_url).join('\n');
+                
                 await navigator.share({
-                    title: `${selectedMediaItems.length} קבצים מהאירוע "${eventDetails?.name || ''}"`,
-                    text: `קישורים לתמונות וסרטונים מהאירוע:\n${urls}`
+                    title: shareText,
+                    text: `${shareText}\n\nקישורים לתמונות וסרטונים:\n${urls}`
                 });
                 showToast("info", "שיתוף קישורים", "שותפו קישורים לקבצים (לא הקבצים עצמם).");
             }
@@ -1258,9 +1276,12 @@ export default function GuestAlbumPage() {
             const file = new File([blob], filename, { type: blob.type });
             
             if (navigator.share && navigator.canShare && navigator.canShare({ files: [file] })) {
+                const eventDate = eventDetails?.event_date ? new Date(eventDetails.event_date).toLocaleDateString('he-IL') : '';
+                const shareText = `מתוך האירוע "${eventDetails?.name || 'אלבום'}"${eventDate ? ` - ${eventDate}` : ''} - באמצעות "סטרינגס"`;
+                
                 await navigator.share({
-                    title: `${eventDetails?.name || 'אלבום'} - ${item.uploader_name || 'תמונה'}`,
-                    text: 'תמונה מאלבום האירוע',
+                    title: shareText,
+                    text: shareText,
                     files: [file]
                 });
                 showToast("success", "שותף בהצלחה!", "התמונה נשמרה או שותפה באפליקציה שבחרת.");
