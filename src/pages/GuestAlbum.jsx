@@ -339,7 +339,7 @@ export default function GuestAlbumPage() {
   const [isLoadingMedia, setIsLoadingMedia] = useState(false);
   const [likedItems, setLikedItems] = useState([]);
   const [favoritesFilterActive, setFavoritesFilterActive] = useState(false);
-  const [mediaFilter, setMediaFilter] = useState('all');
+  const [mediaFilter, setMediaFilter] = useState('image');
 
 
   // Upload related states
@@ -1392,7 +1392,6 @@ export default function GuestAlbumPage() {
         return likedItems.includes(item.id);
       }
       // Otherwise, filter by media type.
-      if (mediaFilter === 'all') return true;
       return item.file_type === mediaFilter;
     });
 
@@ -1783,7 +1782,6 @@ export default function GuestAlbumPage() {
               {/* NEW: Filter Buttons (media type + favorites) */}
               <div className="flex items-center justify-center flex-nowrap overflow-x-auto gap-2 mb-6 bg-white dark:bg-gray-800 p-2 rounded-full shadow-md">
                 {[
-                    { type: 'all', label: 'הכל', icon: null },
                     { type: 'image', label: 'תמונות', icon: ImageIconLucide }
                 ].map(filter => (
                     <Button
